@@ -14543,7 +14543,7 @@
                 </div>
               </div>
               <div class="col-lg-12 col-md-6  mb-4">
-                <div class="form-check form-check-inline">
+                <!-- <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
                     value="option1" checked>
                   <label class="form-check-label" for="inlineRadio1">Show All</label>
@@ -14557,10 +14557,39 @@
                   <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
                     value="option3">
                   <label class="form-check-label" for="inlineRadio3">International</label>
-                </div>
+                </div> -->
+
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="all" checked>
+                  <label class="form-check-label" for="inlineRadio1">Show All</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="domestic">
+                  <label class="form-check-label" for="inlineRadio2">Domestic</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="international">
+                  <label class="form-check-label" for="inlineRadio3">International</label>
+              </div>
               </div>
               <div class="p-2">
                 <table class="table table-hover">
+                  <thead>
+                      <tr>
+                          <th scope="col">Post Date</th>
+                          <th scope="col">Transaction Date</th>
+                          <th scope="col">Description</th>
+                          <th scope="col">Currency</th>
+                          <th scope="col" class="text-end">Transaction Amount</th>
+                          <th scope="col" class="text-end">Amount</th>
+                          <th scope="col" class="text-end">DR/CR</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Table rows will be populated here -->
+                  </tbody>
+              </table>
+                <!-- <table class="table table-hover">
                   <thead>
                     <tr>
                       <th scope="col">Post Date</th>
@@ -14601,7 +14630,7 @@
                       <td class="text-end">DR</td>
                     </tr>
                   </tbody>
-                </table>
+                </table> -->
               </div>
 
             </div>
@@ -19744,6 +19773,55 @@
     });
 
   </script>
+<script>
+    // Sample data for the table
+    const data = {
+        all: [
+            { postDate: "11/07/2024", transactionDate: "11/07/2024", description: "Sriyani Dress Point Kurunagala", currency: "LKR", amount: "3,627.73", drCr: "DR" },
+            { postDate: "13/07/2024", transactionDate: "13/07/2024", description: "Ali Express", currency: "USD", amount: "5.73", drCr: "DR" },
+            { postDate: "19/07/2024", transactionDate: "19/07/2024", description: "Sinhagiri Super Center", currency: "LKR", amount: "15,789.56", drCr: "DR" }
+        ],
+        domestic: [
+            { postDate: "11/07/2024", transactionDate: "11/07/2024", description: "Sriyani Dress Point Kurunagala", currency: "LKR", amount: "3,627.73", drCr: "DR" },
+             { postDate: "19/07/2024", transactionDate: "19/07/2024", description: "Sinhagiri Super Center", currency: "LKR", amount: "15,789.56", drCr: "DR" }
+        ],
+        international: [
+               { postDate: "13/07/2024", transactionDate: "13/07/2024", description: "Ali Express", currency: "USD", amount: "5.73", drCr: "DR" }
+        ]
+    };
+
+    // Function to update the table based on the selected radio button
+    function updateTable() {
+        const selectedOption = document.querySelector('input[name="inlineRadioOptions"]:checked').value;
+        const tbody = document.querySelector('table tbody');
+        tbody.innerHTML = ''; // Clear existing rows
+
+        const filteredData = data[selectedOption];
+
+        filteredData.forEach(item => {
+            const row = `
+                <tr>
+                    <td>${item.postDate}</td>
+                    <td>${item.transactionDate}</td>
+                    <td>${item.description}</td>
+                    <td>${item.currency}</td>
+                    <td class="text-end">${item.amount}</td>
+                    <td class="text-end">${item.amount}</td>
+                    <td class="text-end">${item.drCr}</td>
+                </tr>
+            `;
+            tbody.innerHTML += row; // Append the new row
+        });
+    }
+
+    // Add event listeners to the radio buttons
+    document.querySelectorAll('input[name="inlineRadioOptions"]').forEach(radio => {
+        radio.addEventListener('change', updateTable);
+    });
+
+    // Initial table load
+    updateTable();
+</script>
 
 </body>
 
